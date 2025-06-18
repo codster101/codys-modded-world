@@ -1,0 +1,10 @@
+{
+	"nodes":[
+		{"id":"5505ecfc03114294","type":"text","text":"### [[Explore]]\n- Gather Materials\n- Find loot\n- Kill Mobs\n- ","x":-400,"y":-100,"width":250,"height":200},
+		{"id":"b9d2c8f194192901","type":"text","text":"### Level Up\n- Craft\n- Build\n- Expand\n- Prepare for the next trip","x":40,"y":-100,"width":250,"height":200}
+	],
+	"edges":[
+		{"id":"bdc065183cc8da6d","fromNode":"b9d2c8f194192901","fromSide":"top","toNode":"5505ecfc03114294","toSide":"top"},
+		{"id":"1ce9e3603b82ffe4","fromNode":"5505ecfc03114294","fromSide":"bottom","toNode":"b9d2c8f194192901","toSide":"bottom"}
+	]
+}

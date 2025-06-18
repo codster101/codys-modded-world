@@ -1,0 +1,16 @@
+{
+	"nodes":[
+		{"id":"64403cbfa7860a45","x":-160,"y":-340,"width":250,"height":60,"type":"text","text":"# People"},
+		{"id":"0215a6aad77990c4","x":-195,"y":-180,"width":320,"height":200,"type":"text","text":"To grow in any 1 area you must have a balance in all 3.\n\nHaving an imbalance will cause collapse in your empire"},
+		{"id":"1c8f89ef3abc191e","x":-145,"y":-460,"width":220,"height":100,"type":"text","text":"- More Jobs\n- More Continuous Systems"},
+		{"id":"5c992412328805df","x":260,"y":100,"width":250,"height":60,"type":"text","text":"# Food"},
+		{"id":"e0e3a5031855b6a9","x":-560,"y":100,"width":250,"height":60,"type":"text","text":"# Housing"},
+		{"id":"d24d5a90973a1248","type":"text","text":"- Expansion geographically\n- Own more land","x":-545,"y":200,"width":220,"height":100},
+		{"id":"a444847be5cb2c48","type":"text","text":"- Faster growth of people","x":275,"y":200,"width":220,"height":100}
+	],
+	"edges":[
+		{"id":"e632b9dfd7659323","fromNode":"e0e3a5031855b6a9","fromSide":"top","toNode":"64403cbfa7860a45","toSide":"left","toEnd":"none"},
+		{"id":"ab8bade857e4ae77","fromNode":"64403cbfa7860a45","fromSide":"right","toNode":"5c992412328805df","toSide":"top","toEnd":"none"},
+		{"id":"e74f0cd5db355a87","fromNode":"5c992412328805df","fromSide":"left","toNode":"e0e3a5031855b6a9","toSide":"right","toEnd":"none"}
+	]
+}
