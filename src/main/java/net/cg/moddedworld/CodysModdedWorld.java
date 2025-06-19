@@ -1,5 +1,7 @@
 package net.cg.moddedworld;
 
+import net.cg.moddedworld.Block.ModBlocks;
+import net.cg.moddedworld.Item.ModItems;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -20,5 +22,7 @@ public class CodysModdedWorld implements ModInitializer {
 		// Proceed with mild caution.
 
 		LOGGER.info("Hello Fabric world!");
+		ModItems.registerModItems();
+		ModBlocks.registerModBlocks();
 	}
 }
