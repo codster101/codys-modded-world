@@ -27,7 +27,7 @@
 ## Age Progression
 ### Ancient
 ###### Advancement Requirement
-- Build the "City Hall" block
+- Build the "[[City Hall]]" block
 
 ### Stone
 ###### Advancement Requirement
