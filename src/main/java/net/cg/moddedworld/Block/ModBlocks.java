@@ -18,14 +18,22 @@ import net.minecraft.util.Identifier;
 
 public class ModBlocks {
 
-    public static final Block CITY_HALL = registerBlock("city_hall",
-            new ChestBlock(
-            AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(2.5F).sounds(BlockSoundGroup.WOOD).burnable(),
-			() -> BlockEntityType.CHEST
-		));
-
 //    public static final Block CITY_HALL = registerBlock("city_hall",
-//            new Block(AbstractBlock.Settings.create()));
+ //           new ChestBlock(
+  //          AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(2.5F).sounds(BlockSoundGroup.WOOD).burnable(),
+//			() -> BlockEntityType.CHEST
+//		));
+
+    public static final Block CITY_HALL = registerBlock("city_hall",
+            new CityHallBlock(
+                AbstractBlock.Settings.create()
+                        .mapColor(MapColor.STONE_GRAY)
+                        .instrument(NoteBlockInstrument.BASEDRUM)
+                        .requiresTool()
+                        .strength(22.5F, 600.0F)
+                        .luminance(state -> 7)
+            )
+    );
 
     private static Block registerBlock(String name, Block block) {
         Registry.register(Registries.ITEM, Identifier.of(CodysModdedWorld.MOD_ID, name), new BlockItem(block, new Item.Settings()));

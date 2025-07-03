@@ -1,5 +1,6 @@
 package net.cg.moddedworld;
 
+import net.cg.moddedworld.Block.Entity.ModBlockEntities;
 import net.cg.moddedworld.Block.ModBlocks;
 import net.cg.moddedworld.Item.ModItems;
 import net.fabricmc.api.ModInitializer;
@@ -24,5 +25,6 @@ public class CodysModdedWorld implements ModInitializer {
 		LOGGER.info("Hello Fabric world!");
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
+		ModBlockEntities.registerBlockEntities();
 	}
 }
