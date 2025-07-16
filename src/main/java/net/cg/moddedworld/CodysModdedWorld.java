@@ -1,8 +1,8 @@
 package net.cg.moddedworld;
 
-import net.cg.moddedworld.Block.Entity.ModBlockEntities;
-import net.cg.moddedworld.Block.ModBlocks;
-import net.cg.moddedworld.Item.ModItems;
+import net.cg.moddedworld.block.entity.ModBlockEntities;
+import net.cg.moddedworld.block.ModBlocks;
+import net.cg.moddedworld.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;

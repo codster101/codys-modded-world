@@ -1,11 +1,9 @@
-package net.cg.moddedworld.Block;
+package net.cg.moddedworld.block;
 
 import net.cg.moddedworld.CodysModdedWorld;
+import net.cg.moddedworld.block.entity.ModBlockEntities;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.ChestBlock;
-import net.minecraft.block.MapColor;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.BlockItem;
@@ -26,13 +24,7 @@ public class ModBlocks {
 
     public static final Block CITY_HALL = registerBlock("city_hall",
             new CityHallBlock(
-                AbstractBlock.Settings.create()
-                        .mapColor(MapColor.STONE_GRAY)
-                        .instrument(NoteBlockInstrument.BASEDRUM)
-                        .requiresTool()
-                        .strength(22.5F, 600.0F)
-                        .luminance(state -> 7)
-            )
+                AbstractBlock.Settings.copy(Blocks.CHEST), () -> ModBlockEntities.CITY_HALL_BLOCK_ENTITY)
     );
 
     private static Block registerBlock(String name, Block block) {

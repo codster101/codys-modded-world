@@ -1,8 +1,9 @@
-package net.cg.moddedworld.Block.Entity;
+package net.cg.moddedworld.block.entity;
 
-import net.cg.moddedworld.Block.CityHallBlock;
-import net.cg.moddedworld.Block.ModBlocks;
+import net.cg.moddedworld.block.CityHallBlock;
+import net.cg.moddedworld.block.ModBlocks;
 import net.cg.moddedworld.CodysModdedWorld;
+import net.cg.moddedworld.block.entity.CityHallBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;

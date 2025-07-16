@@ -1,4 +1,4 @@
-package net.cg.moddedworld.Item;
+package net.cg.moddedworld.item;
 
 import net.cg.moddedworld.CodysModdedWorld;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
