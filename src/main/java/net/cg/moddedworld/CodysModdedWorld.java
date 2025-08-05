@@ -5,6 +5,8 @@ import net.cg.moddedworld.block.ModBlocks;
 import net.cg.moddedworld.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,5 +28,12 @@ public class CodysModdedWorld implements ModInitializer {
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModBlockEntities.registerBlockEntities();
+	}
+
+	public static void LogToScreen(String message) {
+		MinecraftClient client = MinecraftClient.getInstance();
+		if (client.player != null) {
+			client.player.sendMessage(Text.literal(message));
+		}
 	}
 }

@@ -3,6 +3,7 @@ package net.cg.moddedworld.block.entity;
 import net.cg.moddedworld.CodysModdedWorld;
 import net.cg.moddedworld.block.CityHallBlock;
 import net.cg.moddedworld.screen.CityHallScreenHandler;
+import net.cg.moddedworld.systems.EraManager;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.*;
 import net.minecraft.client.MinecraftClient;
@@ -117,12 +118,14 @@ public class CityHallBlockEntity extends ChestBlockEntity {
                 items.merge(itemStack.getItem(), itemStack.getCount(), Integer::sum);
             }
         }
+        EraManager.CheckAdvanceEra(items);
+
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player != null) {
             client.player.sendMessage(Text.literal(String.valueOf(count)));
         }
     }
-//
+
 //    public boolean canPlayerUse(PlayerEntity player) {
 //        return Inventory.canPlayerUse(this, player);
 //    }
