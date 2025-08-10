@@ -110,20 +110,8 @@ public class CityHallBlockEntity extends ChestBlockEntity {
     // Then checks to see if the goal is met to advance the age
     public void onClose(PlayerEntity player) {
         super.onClose(player);
-        DefaultedList<ItemStack> inventory = super.getHeldStacks();
-        Map<Item, Integer> items = new HashMap<>();
-        int count = 0;
-        for (ItemStack itemStack : inventory) {
-            if (!itemStack.isOf(Items.AIR)) {
-                items.merge(itemStack.getItem(), itemStack.getCount(), Integer::sum);
-            }
-        }
-        EraManager.CheckAdvanceEra(items);
 
-        MinecraftClient client = MinecraftClient.getInstance();
-        if (client.player != null) {
-            client.player.sendMessage(Text.literal(String.valueOf(count)));
-        }
+        EraManager.CheckAdvanceEra(getHeldStacks());
     }
 
 //    public boolean canPlayerUse(PlayerEntity player) {

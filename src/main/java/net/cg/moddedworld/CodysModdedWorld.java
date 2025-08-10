@@ -32,7 +32,7 @@ public class CodysModdedWorld implements ModInitializer {
 
 	public static void LogToScreen(String message) {
 		MinecraftClient client = MinecraftClient.getInstance();
-		if (client.player != null) {
+	if (client != null && client.player != null) {
 			client.player.sendMessage(Text.literal(message));
 		}
 	}

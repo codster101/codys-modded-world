@@ -1,0 +1,20 @@
+{
+  "eras" : [
+    {
+      "required_items" : [
+        {
+          "item" : "rotten_flesh",
+          "amount" : 10
+        },
+        {
+          "item" : "dark_oak_log",
+          "amount" : 10
+        },
+        {
+          "item" : "carrot",
+          "amount" : 10
+        }
+      ]
+    }
+  ]
+}
