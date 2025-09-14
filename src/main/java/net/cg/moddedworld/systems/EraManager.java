@@ -31,7 +31,7 @@ public class EraManager {
 
     static int eraNumber = 0;
 
-    static String configFileName = "src/main/resources/assets/codysmoddedworld/systems/era_config.json";
+    static String configFileName = "src/main/resources/assets/codysmoddedworld/systems/test_config.json";
 
     public static int GetCurrentEra() { return eraNumber; }
 

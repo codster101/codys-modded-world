@@ -1,4 +1,3 @@
-Make a note of something, [[create a link]], or try [the Importer](https://help.obsidian.md/Plugins/Importer)!
 
 # Minecraft BUT, You are Creating an Empire
 - Expand you base into an empire by working with NPCs(citizens), exploring dungeons, killing mobs and bosses, and building systems to mass-automate resource gathering
