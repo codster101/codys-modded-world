@@ -1,11 +1,14 @@
 {
-	"required": true,
-	"package": "net.cg.moddedworld.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-		"ExampleMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "package": "net.cg.moddedworld.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ExampleMixin",
+    "MobVisibilityMixin",
+    "TargetPredicateMixin",
+    "ZombieEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }
