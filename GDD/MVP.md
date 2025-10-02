@@ -11,5 +11,5 @@ This opens up new recipes
 - [ ] Set item requirements for each era
 - [ ] Decide a focus for each era
 - [ ] Modify enemy AI to target the City Hall block if within range
-- [ ] Allow enemies to break blocks
+- [x] Allow enemies to break blocks
 	

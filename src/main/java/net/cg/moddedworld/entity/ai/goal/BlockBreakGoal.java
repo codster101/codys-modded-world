@@ -1,23 +1,27 @@
 package net.cg.moddedworld.entity.ai.goal;
 
 import net.cg.moddedworld.CodysModdedWorld;
-import net.minecraft.block.AmethystBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.NavigationConditions;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.ai.pathing.PathNode;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEvents;
 import org.joml.Vector3f;
+
+import java.util.EnumSet;
+import java.util.Set;
 
 public class BlockBreakGoal extends Goal {
     private final MobEntity mob;
@@ -29,30 +33,38 @@ public class BlockBreakGoal extends Goal {
     protected int prevBreakProgress = -1;
     protected int maxProgress = -1;
 
+    private Vec3d lastPos = Vec3d.ZERO;
+    private float stagnantBufferDistance = .1f;
+    private float stagnantTimeLaspsed = 0f;
+    private float stagnantTimeBeforeBreak = 2f;
+
+
     public BlockBreakGoal(MobEntity mob) {
         this.mob = mob;
         if (!NavigationConditions.hasMobNavigation(mob)) {
             throw new IllegalArgumentException("Unsupported mob type for DoorInteractGoal");
         }
+
+        super.setControls(EnumSet.of(Control.MOVE));
     }
 
     @Override
     public boolean canStart() {
         MobNavigation mobNavigation = (MobNavigation)this.mob.getNavigation();
         Path path = mobNavigation.getCurrentPath();
-        if(path != null && path.isFinished()) {
-            BlockPos frontPos = this.mob.getBlockPos().offset(this.mob.getHorizontalFacing());
-            for (int yOffset = 0; yOffset <= 2; yOffset++) {
-                BlockPos checkPos = frontPos.up(yOffset);
-                Block targetBlock = this.mob.getWorld().getBlockState(checkPos).getBlock();
-                CodysModdedWorld.LOGGER.info("End of Path, {}: {}", frontPos.toString(), targetBlock.toString());
-                if (targetBlock != Blocks.AIR) {
-                            this.blockPos = checkPos;
-                    return true;
+        CheckIfStuck();
+
+        if(this.mob.getTarget() instanceof PlayerEntity /*&&
+                path != null && path.getLength() < 2*/) {
+            if(stagnantTimeLaspsed > stagnantTimeBeforeBreak) {
+                if(IsBreakableBlockInFront()) {
+                   return true;
+                }
+                else if(IsBreakableBlockFrontDiagonal()) {
+                   return true;
                 }
             }
         }
-
         return false;
 //
 //        if (!this.mob.horizontalCollision) {
@@ -120,6 +132,54 @@ public class BlockBreakGoal extends Goal {
 //		}
     }
 
+    private boolean IsBreakableBlockInFront() {
+        BlockPos frontPos = this.mob.getBlockPos().offset(this.mob.getHorizontalFacing());
+        for (int yOffset = 0; yOffset <= 2; yOffset++) {
+            BlockPos checkPos = frontPos.up(yOffset);
+            Block targetBlock = this.mob.getWorld().getBlockState(checkPos).getBlock();
+//            CodysModdedWorld.LOGGER.info("End of Path, {}: {}", frontPos.toString(), targetBlock.toString());
+            if (targetBlock != Blocks.AIR) {
+                this.blockPos = checkPos;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean IsBreakableBlockFrontDiagonal() {
+        BlockPos frontPos = this.mob.getBlockPos().offset(this.mob.getHorizontalFacing());
+        BlockPos rightFrontPos = frontPos.offset(this.mob.getHorizontalFacing().rotateYClockwise());
+        BlockPos leftFrontPos = frontPos.offset(this.mob.getHorizontalFacing().rotateYCounterclockwise());
+        for (int yOffset = 0; yOffset <= 2; yOffset++) {
+            Block rightFrontBlock = this.mob.getWorld().getBlockState(rightFrontPos.up(yOffset)).getBlock();
+            Block leftFrontBlock = this.mob.getWorld().getBlockState(leftFrontPos.up(yOffset)).getBlock();
+
+            if (rightFrontBlock != Blocks.AIR) {
+                this.blockPos = rightFrontPos.up(yOffset);
+                return true;
+            }
+
+            if (leftFrontBlock != Blocks.AIR) {
+                this.blockPos = leftFrontPos.up(yOffset);
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+//    private boolean CheckVerticallyForBreakableBlock
+
+    private void CheckIfStuck() {
+        if(lastPos.distanceTo(mob.getPos()) < stagnantBufferDistance) {
+            stagnantTimeLaspsed += .35f;
+        }
+        else {
+            stagnantTimeLaspsed = 0f;
+        }
+        lastPos = this.mob.getPos();
+    }
+
     protected int getMaxProgress() {
         return Math.max(240, this.maxProgress);
     }
@@ -136,6 +196,25 @@ public class BlockBreakGoal extends Goal {
 //        this.offsetX = (float)(this.doorPos.getX() + 0.5 - this.mob.getX());
 //        this.offsetZ = (float)(this.doorPos.getZ() + 0.5 - this.mob.getZ());
     }
+
+    @Override
+    public boolean shouldContinue() {
+        boolean a = this.breakProgress <= this.getMaxProgress();
+        boolean b = this.mob.getWorld().getBlockState(this.blockPos).getBlock() != Blocks.AIR;
+        double c = this.blockPos.getSquaredDistance(this.mob.getPos());
+        return this.breakProgress <= this.getMaxProgress()
+                && this.mob.getWorld().getBlockState(this.blockPos).getBlock() != Blocks.AIR
+                && this.blockPos.isWithinDistance(this.mob.getPos(), 3.0);
+//                && this.isDifficultySufficient(this.mob.getWorld().getDifficulty());
+    }
+
+
+    @Override
+    public void stop() {
+        super.stop();
+        this.mob.getWorld().setBlockBreakingInfo(this.mob.getId(), this.blockPos, -1);
+    }
+
 
     @Override
     public void tick() {
@@ -159,13 +238,14 @@ public class BlockBreakGoal extends Goal {
             this.mob.getWorld().setBlockBreakingInfo(this.mob.getId(), this.blockPos, i);
             this.prevBreakProgress = i;
         }
-        CodysModdedWorld.LogToScreen(this.toString() + i);
-//        if (this.breakProgress == this.getMaxProgress() /*&& this.isDifficultySufficient(this.mob.getWorld().getDifficulty())*/) {
+//            CodysModdedWorld.LogToScreen(this.toString() + i);
+        if (this.breakProgress == this.getMaxProgress() /*&& this.isDifficultySufficient(this.mob.getWorld().getDifficulty())*/) {
             this.mob.getWorld().removeBlock(this.blockPos, false);
             this.mob.getWorld().syncWorldEvent(WorldEvents.ZOMBIE_BREAKS_WOODEN_DOOR, this.blockPos, 0);
             this.mob.getWorld().syncWorldEvent(WorldEvents.BLOCK_BROKEN, this.blockPos,
                     Block.getRawIdFromState(this.mob.getWorld().getBlockState(this.blockPos)));
-//        }
+            this.shouldStop = true;
+        }
     }
 
     private void debugWorldContext(World world) {

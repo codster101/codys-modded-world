@@ -34,9 +34,25 @@
               "icon": "lucide-file",
               "title": "Enemy AI"
             }
+          },
+          {
+            "id": "3501ff8aa7200058",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "Progression.canvas",
+                "viewState": {
+                  "x": 119,
+                  "y": -100,
+                  "zoom": -0.4216215308786084
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "Progression"
+            }
           }
-        ],
-        "currentTab": 1
+        ]
       },
       {
         "id": "812eb823d2ef9024",
@@ -105,8 +121,7 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -193,6 +208,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:Create new base": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
@@ -201,8 +217,9 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "ebc8ac69628e1bc1",
+  "active": "a304aac5ebe3158a",
   "lastOpenFiles": [
+    "Progression.canvas",
     "Enemy AI.md",
     "MVP.md",
     "City Hall.md",
@@ -211,7 +228,6 @@
     "Base.canvas",
     "Explore.md",
     "Core Pillars and Game Loop.canvas",
-    "Progression.canvas",
     "create a link.md",
     "Minecraft Core Pillars.md"
   ]

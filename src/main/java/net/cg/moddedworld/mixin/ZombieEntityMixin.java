@@ -25,16 +25,16 @@ public class ZombieEntityMixin extends HostileEntity {
        this.goalSelector.add(-1, new BlockBreakGoal(this));
     }
 
-    @Inject(method="tick", at=@At("HEAD"))
-    private void PrintGoal(CallbackInfo cir) {
-        for (PrioritizedGoal goal : this.goalSelector.getGoals()) {
-            if (goal.isRunning()) {
-                CodysModdedWorld.LOGGER.info("[ZOMBIE AI] " + this.getName().getString() +
-                        " at " + this.getBlockPos() +
-                        " is running goal: " + goal.getGoal().getClass().getSimpleName() +
-                        " (Priority: " + goal.getPriority() + ")");
-            }
-        }
-        CodysModdedWorld.LOGGER.info("-----");
-    }
+//    @Inject(method="tick", at=@At("HEAD"))
+//    private void PrintGoal(CallbackInfo cir) {
+//        for (PrioritizedGoal goal : this.goalSelector.getGoals()) {
+//            if (goal.isRunning()) {
+//                CodysModdedWorld.LOGGER.info("[ZOMBIE AI] " + this.getName().getString() +
+//                        " at " + this.getBlockPos() +
+//                        " is running goal: " + goal.getGoal().getClass().getSimpleName() +
+//                        " (Priority: " + goal.getPriority() + ")");
+//            }
+//        }
+//        CodysModdedWorld.LOGGER.info("-----");
+//    }
 }

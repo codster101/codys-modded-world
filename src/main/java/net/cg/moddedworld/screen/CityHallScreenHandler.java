@@ -14,7 +14,8 @@ public class CityHallScreenHandler extends ScreenHandler {
     private static final int NUM_COLUMNS = 9;
     private final Inventory inventory;
     private final int rows;
-//    public CityHallScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, int rows) {
+//    public CityHallScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory,
+//    Inventory inventory, int rows) {
 //        super(type, syncId, playerInventory, inventory, rows);
 //    }
 

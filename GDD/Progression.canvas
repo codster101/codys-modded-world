@@ -1,11 +1,11 @@
 {
 	"nodes":[
-		{"id":"198879dbb2b06269","x":-240,"y":-440,"width":140,"height":120,"type":"text","text":"## Stone\n- Wood"},
-		{"id":"b99d0053f58e0b59","x":-20,"y":-440,"width":145,"height":120,"type":"text","text":"## Iron\n- Stone"},
-		{"id":"e59bbfcac97cf130","x":200,"y":-440,"width":205,"height":120,"type":"text","text":"## Diamond\n- Iron"},
-		{"id":"7b4ca91a4e8314c0","x":0,"y":720,"width":250,"height":60,"type":"text","text":""},
-		{"id":"0fb29f558d3c14c7","x":-460,"y":-410,"width":160,"height":60,"type":"text","text":"## Wood"},
-		{"id":"922388f8db9803fb","x":500,"y":-460,"width":198,"height":160,"type":"text","text":"## Netherite\n- Obsidian\n- Diamond\n- Gold"}
+		{"id":"198879dbb2b06269","type":"text","text":"## Stone\n- Wood","x":-240,"y":-440,"width":140,"height":120},
+		{"id":"b99d0053f58e0b59","type":"text","text":"## Iron\n- Stone","x":-20,"y":-440,"width":145,"height":120},
+		{"id":"e59bbfcac97cf130","type":"text","text":"## Diamond\n- Iron","x":200,"y":-440,"width":205,"height":120},
+		{"id":"0fb29f558d3c14c7","type":"text","text":"## Wood","x":-460,"y":-410,"width":160,"height":60},
+		{"id":"922388f8db9803fb","type":"text","text":"## Netherite\n- Obsidian\n- Diamond\n- Gold","x":500,"y":-460,"width":198,"height":160},
+		{"id":"7b4ca91a4e8314c0","type":"text","text":"### Tools\n### Walls\n\n","x":-460,"y":-80,"width":440,"height":340}
 	],
 	"edges":[
 		{"id":"9ca22325b45dc88a","fromNode":"0fb29f558d3c14c7","fromSide":"right","toNode":"198879dbb2b06269","toSide":"left"},
