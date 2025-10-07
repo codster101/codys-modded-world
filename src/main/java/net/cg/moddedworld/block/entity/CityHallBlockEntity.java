@@ -111,6 +111,7 @@ public class CityHallBlockEntity extends ChestBlockEntity {
     public void onClose(PlayerEntity player) {
         super.onClose(player);
 
+        EraManager.SetServer(player.getServer());
         EraManager.CheckAdvanceEra(getHeldStacks());
     }
 
@@ -134,9 +135,10 @@ public class CityHallBlockEntity extends ChestBlockEntity {
 //       return size;
 //    }
 
-//    @Override
-//    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-//        return CityHallScreenHandler.createGeneric9x3(syncId, playerInventory, this);
-//    }
+    @Override
+    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
+        return CityHallScreenHandler.createGeneric9x3(syncId, playerInventory, this);
+    }
+
 }
 

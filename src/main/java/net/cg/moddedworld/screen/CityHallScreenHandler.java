@@ -4,6 +4,7 @@ import net.cg.moddedworld.CodysModdedWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.ScreenHandler;
@@ -14,14 +15,19 @@ public class CityHallScreenHandler extends ScreenHandler {
     private static final int NUM_COLUMNS = 9;
     private final Inventory inventory;
     private final int rows;
-//    public CityHallScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory,
-//    Inventory inventory, int rows) {
-//        super(type, syncId, playerInventory, inventory, rows);
-//    }
 
-    public static CityHallScreenHandler createGeneric9x3(int syncId, PlayerInventory playerInventory, Inventory inventory) {
-        return new CityHallScreenHandler(ScreenHandlerType.GENERIC_9X3, syncId, playerInventory, inventory, 3);
+    public CityHallScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, int rows) {
+        this(type, syncId, playerInventory, new SimpleInventory(9 * rows) ,rows);
     }
+
+    public static CityHallScreenHandler createGeneric9x3(int syncId, PlayerInventory playerInventory) {
+        return new CityHallScreenHandler(ModScreenHandlers.CITY_HALL_SCREEN_HANDLER, syncId, playerInventory, 3);
+    }
+
+    public static GenericContainerScreenHandler createGeneric9x3(int syncId, PlayerInventory playerInventory, Inventory inventory) {
+        return new GenericContainerScreenHandler(ModScreenHandlers.CITY_HALL_SCREEN_HANDLER, syncId, playerInventory, inventory, 3);
+    }
+
 
     public CityHallScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, int rows) {
         super(type, syncId);
@@ -77,5 +83,9 @@ public class CityHallScreenHandler extends ScreenHandler {
     @Override
     public boolean canUse(PlayerEntity player) {
 		return this.inventory.canPlayerUse(player);
+    }
+
+    public int getRows() {
+        return this.rows;
     }
 }

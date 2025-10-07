@@ -10,12 +10,18 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
+import net.minecraft.resource.Resource;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
+import org.apache.logging.log4j.core.jmx.Server;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -31,7 +37,9 @@ public class EraManager {
 
     static int eraNumber = 0;
 
-    static String configFileName = "src/main/resources/assets/codysmoddedworld/systems/test_config.json";
+    static String configFileName = "systems/test_config.json";
+
+    static MinecraftServer server;
 
     public static int GetCurrentEra() { return eraNumber; }
 
@@ -43,6 +51,8 @@ public class EraManager {
 
     public static void ResetEra() { eraNumber = 0; }
 
+    public static void SetServer(MinecraftServer currServer) {server = currServer;}
+
 //    private static Map<String, Integer> ConvertInventory(Map<Item, Integer> inventory) {
 //
 //    }
@@ -52,11 +62,14 @@ public class EraManager {
             /* Advance Era */
             // All the required items are present in enough quantity
             // so increment the era count and run StartEra for the new era
-            MinecraftClient client = MinecraftClient.getInstance();
-            CodysModdedWorld.LogToScreen("Next Era");
-
-            eraNumber++;
+           AdvanceEra();
         }
+    }
+
+    private static void AdvanceEra() {
+        CodysModdedWorld.LogToScreen("Next Era");
+
+        eraNumber++;
     }
 
     private static boolean CheckInventory(DefaultedList<ItemStack> inventory) {
@@ -64,7 +77,7 @@ public class EraManager {
         HashMap<Item, Integer> requiredItems = null;
         try {
             requiredItems = new HashMap<>(GetNextEraRequiredItems());
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
@@ -85,20 +98,34 @@ public class EraManager {
         return true;
     }
 
-    public static Map<Item, Integer> GetNextEraRequiredItems() throws FileNotFoundException {
-        String test = System.getProperty("user.dir");
-        JsonObject configJson = (JsonObject) JsonParser.parseReader(new FileReader(configFileName));     // Get whole JSON
+    public static Map<Item, Integer> GetNextEraRequiredItems() throws IOException {
+        JsonObject configJson = (JsonObject) JsonParser.parseString(
+                ParseJsonDataToString(configFileName)).getAsJsonObject();     // Get whole JSON
         JsonArray eras = (JsonArray) configJson.get("eras");     // Get list of Eras
         JsonArray requiredItems = (JsonArray) ((JsonObject) eras.get(eraNumber)).get("required_items");     // Get list required items as item : <item> , amount : <amount>
 
+        return MapRequiredItemsFromJson(requiredItems);
+    }
+
+    private static Map<Item, Integer> MapRequiredItemsFromJson(JsonArray requiredItemsArray) {
         Map<Item, Integer> output = new HashMap<>();
 
-        for(JsonElement je : requiredItems) {
+        for(JsonElement je : requiredItemsArray) {
             JsonObject obj = (JsonObject) je;       // Parse the current element to a json object
             output.put(Registries.ITEM.get(Identifier.of("minecraft", obj.get("item").getAsString())),    // Get the item name and return as an Item
                     obj.get("amount").getAsInt());      // Get the amount needed
         }
 
         return output;
+    }
+
+    private static String ParseJsonDataToString(String fileName) throws IOException {
+        Resource resource = server.getResourceManager().getResource(
+                Identifier.of(CodysModdedWorld.MOD_ID, fileName)).orElseThrow();
+
+        try(InputStream stream = resource.getInputStream()) {
+            return new String(stream.readAllBytes(), StandardCharsets.UTF_8);
+        }
+
     }
 }

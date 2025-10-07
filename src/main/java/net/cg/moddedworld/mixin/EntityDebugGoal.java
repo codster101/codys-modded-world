@@ -26,7 +26,7 @@ public abstract class EntityDebugGoal {
 
     @Inject(method="tick()V", at=@At("HEAD"))
     private void SetNameToGoal(CallbackInfo cir) {
-        boolean debug = true;
+        boolean debug = false;
         if(debug) {
             String runningGoalNames = GetRunningGoals();
             if(!Objects.equals(previousRunningGoalNames, runningGoalNames)) {

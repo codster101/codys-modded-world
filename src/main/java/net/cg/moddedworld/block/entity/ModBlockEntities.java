@@ -17,6 +17,10 @@ public class ModBlockEntities {
             Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(CodysModdedWorld.MOD_ID, "city_hall"),
                     BlockEntityType.Builder.create(CityHallBlockEntity::new, ModBlocks.CITY_HALL).build());
 
+    public static final BlockEntityType<CityHallBlockEntity> FOOD_STORAGE_BLOCK_ENTITY =
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(CodysModdedWorld.MOD_ID, "food_storage"),
+                    BlockEntityType.Builder.create(CityHallBlockEntity::new, ModBlocks.FOOD_STORAGE).build());
+
     public static void registerBlockEntities() {
         CodysModdedWorld.LOGGER.info("Regsistering Block Entities for " + CodysModdedWorld.MOD_ID);
     }

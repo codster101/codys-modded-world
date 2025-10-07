@@ -27,6 +27,11 @@ public class ModBlocks {
                 AbstractBlock.Settings.copy(Blocks.CHEST), () -> ModBlockEntities.CITY_HALL_BLOCK_ENTITY)
     );
 
+    public static final Block FOOD_STORAGE = registerBlock("food_storage",
+            new FoodStorageBlock(
+                    AbstractBlock.Settings.copy(Blocks.CHEST), () -> ModBlockEntities.FOOD_STORAGE_BLOCK_ENTITY)
+    );
+
     private static Block registerBlock(String name, Block block) {
         Registry.register(Registries.ITEM, Identifier.of(CodysModdedWorld.MOD_ID, name), new BlockItem(block, new Item.Settings()));
         return Registry.register(Registries.BLOCK, Identifier.of(CodysModdedWorld.MOD_ID, name), block);
@@ -37,6 +42,7 @@ public class ModBlocks {
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
             entries.add(CITY_HALL);
+            entries.add(FOOD_STORAGE);
         });
     }
 }

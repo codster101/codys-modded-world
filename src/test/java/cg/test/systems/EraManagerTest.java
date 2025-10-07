@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,9 +58,9 @@ class EraManagerTest {
    }
 
    @Test
-    void TestGetNextEraRequiredItems() throws FileNotFoundException {
+    void TestGetNextEraRequiredItems() throws IOException {
        EraManager.ResetEra();
-       EraManager.SetConfigFile("src/main/java/net/cg/moddedworld/systems/test_config.json");
+       EraManager.SetConfigFile("src/main/resources/assets/codysmoddedworld/systems/test_config.json");
 
 
        Map<Item, Integer> correct = Map.of(
